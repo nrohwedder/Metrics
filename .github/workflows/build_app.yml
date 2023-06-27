@@ -23,5 +23,4 @@ jobs:
         working-directory: App/DummyApp
         run: |
           export LANG=en_US.UTF-8
-          xcodebuild -showsdks
-          #xcodebuild -scheme DummyApp -configuration Debug -sdk 'iphonesimulator16.4'
+          xcodebuild -scheme DummyApp -configuration Debug -sdk 'iphonesimulator16.2'

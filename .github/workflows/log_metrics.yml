@@ -1,0 +1,28 @@
+name: Log Metrics
+on:
+  workflow_run:
+    workflows: [Build DummyApp]
+    types:
+      - completed
+
+jobs:
+  log-metrics:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.3.0
+        with:
+          fetch-depth: 1
+
+      - name: Log Metrics
+        run: |
+          echo "${{ github.event.workflow_run.name }}"
+          echo "${{ github.event.workflow_run.run_started_at }}"
+          echo "${{ github.event.workflow_run.conclusion }}"
+          echo "${{ github.event.workflow_run.status }}"
+          echo "${{ github.event.workflow_run.updated_at }}"
+          swift run Metrics \
+              streckenagent \
+              "${{ github.event.workflow_run.run_started_at }}" \
+              "${{ github.event.workflow_run.status }}" \
+              "${{ github.event.workflow_run.updated_at }}"

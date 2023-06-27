@@ -15,7 +15,6 @@ jobs:
           fetch-depth: 1
 
       - name: Log Metrics
-        working-directory: Metrics
         run: |
           echo "${{ github.event.workflow_run.name }}"
           echo "${{ github.event.workflow_run.run_started_at }}"

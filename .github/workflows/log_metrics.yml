@@ -16,13 +16,8 @@ jobs:
 
       - name: Log Metrics
         run: |
-          echo "${{ github.event.workflow_run.name }}"
-          echo "${{ github.event.workflow_run.run_started_at }}"
-          echo "${{ github.event.workflow_run.conclusion }}"
-          echo "${{ github.event.workflow_run.status }}"
-          echo "${{ github.event.workflow_run.updated_at }}"
           swift run Metrics \
               streckenagent \
               "${{ github.event.workflow_run.run_started_at }}" \
-              "${{ github.event.workflow_run.status }}" \
+              "${{ github.event.workflow_run.conclusion }}" \
               "${{ github.event.workflow_run.updated_at }}"

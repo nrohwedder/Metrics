@@ -20,6 +20,7 @@ jobs:
           fetch-depth: 5
 
       - name: Build App
+        working-directory: App/DummyApp
         run: |
           export LANG=en_US.UTF-8
           xcodebuild -scheme DummyApp -configuration Debug

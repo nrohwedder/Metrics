@@ -20,4 +20,8 @@ jobs:
 
       - name: Build Package
         run: |
-          swift build
+          swift run Metrics \
+              streckenagent \
+              2023-06-13T15:38:08Z \
+              success \
+              2023-06-13T15:42:08Z

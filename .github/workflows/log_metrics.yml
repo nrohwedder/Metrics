@@ -9,6 +9,11 @@ jobs:
   log-metrics:
     runs-on: macos-13
     steps:
+      - name: Eval workflow env vars
+        if: ${{ github.event.workflow_run.name == 'Build DummyApp' }}
+        run: |
+          echo "FLAVOR=streckenagent" >> $GITHUB_ENV
+
       - name: Checkout
         uses: actions/checkout@v3.3.0
         with:
@@ -22,7 +27,7 @@ jobs:
       - name: Log Metrics
         run: |
           swift run Metrics \
-              streckenagent \
+              $FLAVOR \
               "${{ github.event.workflow_run.run_started_at }}" \
               "${{ github.event.workflow_run.conclusion }}" \
               "${{ github.event.workflow_run.updated_at }}"

@@ -27,3 +27,5 @@ jobs:
 
   get-job-infos:
     uses: ./.github/workflows/get_job_infos.yml
+    with:
+      run_id: ${{ github.run_id }}

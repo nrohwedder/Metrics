@@ -2,7 +2,12 @@ name: Get job infos
 run-name: Job infos
 
 on:
-  workflow_call
+  workflow_call:
+    inputs:
+      run_id:
+        type: string
+        description: 'The run id to get job infos'
+        required: true
 
 jobs:
   get-job-infos:
@@ -15,7 +20,7 @@ jobs:
           route: GET /repos/{owner}/{repo}/actions/runs/{run_id}/jobs
           owner: ${{ github.repository_owner }}
           repo: ${{ github.repository }}
-          run_id: ${{ github.run_id }}
+          run_id: ${{ inputs.run_id }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

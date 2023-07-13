@@ -25,5 +25,5 @@ jobs:
           export LANG=en_US.UTF-8
           xcodebuild -scheme DummyApp -configuration Debug -sdk 'iphonesimulator16.2'
 
-      - name: Get job infos
-        uses: ./.github/workflows/get_job_infos.yml
+  get-job-infos:
+    uses: ./.github/workflows/get_job_infos.yml

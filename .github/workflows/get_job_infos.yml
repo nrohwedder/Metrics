@@ -31,4 +31,9 @@ jobs:
             sudo yum install -y jq
           fi
 
-          echo '${{ steps.get_jobs.outputs.data }}' | jq '.jobs[] | select(.status == "completed") | select(.name == "deploy-flavor") | .steps[] | select(.name == "Build App") | {started_at, completed_at}'
+          echo '${{ steps.get_jobs.outputs.data }}' | jq '.jobs[] | select(.status == "completed") | select(.name == "deploy-flavor") | .steps[] | select(.name == "Build App") | {started_at, completed_at}' | jq -c | while read i; do
+            started_at=$(echo $i | jq '(.started_at)')
+            completed_at=$(echo $i | jq '(.completed_at)')
+
+            echo "$started_at, $completed_at"
+          done

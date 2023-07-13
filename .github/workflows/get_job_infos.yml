@@ -18,6 +18,8 @@ jobs:
           run_id: ${{ github.run_id }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Parsing jobs
         run: |
           # install jq command if it doesn't exist
           if ! [ -x "$(command -v jq)" ]; then
@@ -25,4 +27,5 @@ jobs:
             sudo yum install -y jq
           fi
 
-          echo ${{ jobs.*.status == 'completed' }} | jq '. | select(.name == "Build App") | {started_at}'
+          echo ${{ fromJson(steps.get_jobs.outputs.data) }}
+          echo ${{ fromJson(steps.get_jobs.outputs.data) }} | jq '. | select(.status == "completed") | select(.name == "Build App") | {started_at}'

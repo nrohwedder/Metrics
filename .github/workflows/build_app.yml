@@ -24,3 +24,9 @@ jobs:
         run: |
           export LANG=en_US.UTF-8
           xcodebuild -scheme DummyApp -configuration Debug -sdk 'iphonesimulator16.2'
+
+  get-job-infos:
+    needs: deploy-flavor
+    uses: ./.github/workflows/get_job_infos.yml
+    with:
+      run_id: ${{ github.run_id }}

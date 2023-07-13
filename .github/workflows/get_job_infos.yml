@@ -1,0 +1,28 @@
+name: Get job infos
+run-name: Job infos
+
+on:
+  workflow_call
+
+jobs:
+  get-job-infos:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get job infos
+        uses: octokit/request-action@v2.x
+        id: get_jobs
+        with:
+          route: GET /repos/{owner}/{repo}/actions/runs/{run_id}/jobs
+          owner: ${{ github.repository_owner }}
+          repo: ${{ github.repository }}
+          run_id: ${{ github.run_id }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # install jq command if it doesn't exist
+          if ! [ -x "$(command -v jq)" ]; then
+            echo "install jq"
+            sudo yum install -y jq
+          fi
+
+          echo ${{ jobs.*.status == 'completed' }} | jq '. | select(.name == "Build App") | {started_at}'

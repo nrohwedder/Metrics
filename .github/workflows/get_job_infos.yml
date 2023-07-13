@@ -17,8 +17,7 @@ jobs:
         uses: octokit/request-action@v2.x
         id: get_jobs
         with:
-          route: GET /repos/{owner}/{repo}/actions/runs/{run_id}/jobs
-          owner: ${{ github.repository_owner }}
+          route: GET /repos/{repo}/actions/runs/{run_id}/jobs
           repo: ${{ github.repository }}
           run_id: ${{ inputs.run_id }}
         env:
